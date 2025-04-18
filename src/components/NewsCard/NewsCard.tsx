@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import styles from './NewsCard.module.scss';
 import { IData_SnippetNews } from './../../models/data';
+import NewsTrafficBlock from './NewsTrafficBlock/NewsTrafficBlock';
+import { formatCompactNumber } from './NewsTrafficBlock/NewsTrafficBlock.utils';
+import NewsSentimentStatus from './NewsSentimentStatus/NewsSentimentStatus';
 
 interface Props {
   data: IData_SnippetNews;
 }
-
-const sentimentLabels = {
-  positive: 'Positive',
-  negative: 'Negative',
-  neutral: 'Neutral',
-};
 
 const decodeKwMarkup = (html: string) => {
     const kwClass = styles['kw'];
@@ -50,58 +47,63 @@ export const NewsCard: React.FC<Props> = ({ data }) => {
     }
 
     return (
-        <div className={styles.card}>
-        <div className={styles.headerRow}>
-            <span className={styles.date}>
-                <span>{formattedDay}</span>
-                <span>{formattedMonth}</span>
-            </span>
-            <span className={styles.reach}>{REACH.toString()} Reach</span>
-        </div>
+        <div className={styles['card']}>
+            <div className={styles['headerRow']}>
+                <div className={styles['headerRow__stat']}>
+                    <div className={styles.date}>
+                        <span className="bold">{formattedDay} </span>
+                        <span>{formattedMonth}</span>
+                    </div>
+                    <div className={styles.reach}>
+                        <span className="bold">{formatCompactNumber(REACH)}</span> Reach
+                    </div>
+                    {TRAFFIC && TRAFFIC.length > 0 && (
+                        <NewsTrafficBlock traffic={TRAFFIC} />
+                    )}
+                </div>
+                <NewsSentimentStatus sentiment={SENT} />
+            </div>
 
-        <a href={URL} target="_blank" rel="noopener noreferrer" className={styles.title}>
-            {TI}
-        </a>
+            <h2 className={styles['title']}>{TI}</h2>
 
-        <div className={styles.meta}>
-            <img src={FAV} alt={DOM} className={styles.favicon} />
-            <span className={styles.domain}>{DOM}</span>
-            <span className={styles.country}>🌍 {CNTR}</span>
-            <span className={styles.author}>👤 {AU.join(', ')}</span>
-        </div>
+            <div className={styles.meta}>
+                <img src={FAV} alt={DOM} className={styles.favicon} />
+                <span className={styles.domain}>{DOM}</span>
+                <span className={styles.country}>🌍 {CNTR}</span>
+                <span className={styles.author}>👤 {AU.join(', ')}</span>
+            </div>
 
-        <div className={styles.content}>
-            <div
-                className={highlightsClassName}
-                dangerouslySetInnerHTML={{
-                    __html: decodeKwMarkup(prettifiedHighlights)
-                }}
-            />
-            <button
-                className={styles.showMore}
-                onClick={toggleExpand}
-            >
-                {isExpanded ? 'Show less' : 'Show more'}
-            </button>
-        </div>
+            <div className={styles.content}>
+                <div
+                    className={highlightsClassName}
+                    dangerouslySetInnerHTML={{
+                        __html: decodeKwMarkup(prettifiedHighlights)
+                    }}
+                />
+                <button
+                    className={styles.showMore}
+                    onClick={toggleExpand}
+                >
+                    {isExpanded ? 'Show less' : 'Show more'}
+                </button>
+            </div>
 
-        <div className={styles.tags}>
-            {KW.map((tag, i) => (
-            <span key={i} className={styles.tag}>
-                {tag.value} <span className={styles.count}>({tag.count})</span>
-            </span>
-            ))}
-            {KW.length > 5 && (
-            <button className={styles.showAll}>Show All +{KW.length - 5}</button>
-            )}
-        </div>
+            <div className={styles.tags}>
+                {KW.map((tag, i) => (
+                <span key={i} className={styles.tag}>
+                    {tag.value} <span className={styles.count}>({tag.count})</span>
+                </span>
+                ))}
+                {KW.length > 5 && (
+                    <button className={styles.showAll}>Show All +{KW.length - 5}</button>
+                )}
+            </div>
 
-        <div className={styles.footer}>
-            <button className={styles.sourceBtn}>Original Source</button>
-            <span className={`${styles.sentiment} ${styles[SENT]}`}>
-            {sentimentLabels[SENT]}
-            </span>
-        </div>
+            <div className={styles.footer}>
+                <a href={URL} target='_blank' rel="noreferrer">
+                    <button className={styles.sourceBtn}>Original Source</button>
+                </a>
+            </div>
         </div>
     );
 }

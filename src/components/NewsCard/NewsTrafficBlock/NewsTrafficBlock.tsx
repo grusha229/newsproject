@@ -15,12 +15,14 @@ export default function NewsTrafficBlock({
     return (
         <div className={styles['block']}>
                 <span>Top Traffic: </span>
-                {visibleTraffic.map((country) => (
-                    <div>
-                        <span className={styles['country']}>{country.value}: </span>
-                        <span className={'bold'}>{formatToPercent(country.count)}</span>
-                    </div>
-                ))}
+                <div className={styles['list']}>
+                    {visibleTraffic.map((country) => (
+                        <div>
+                            <span className={styles['country']}>{country.value}: </span>
+                            <span className={'bold'}>{formatToPercent(country.count)}</span>
+                        </div>
+                    ))}
+                </div>
         </div>
     )
 }

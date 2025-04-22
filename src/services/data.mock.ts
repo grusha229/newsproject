@@ -23,6 +23,30 @@ export const MOCK_DATA: IData_SnippetNews = {
       {
         value: "new",
         count: 1
+      },
+      {
+        value: "antivirus",
+        count: 10
+      },
+      {
+        value: "kaspersky",
+        count: 5
+      },
+      {
+        value: "new",
+        count: 1
+      },
+      {
+        value: "antivirus",
+        count: 10
+      },
+      {
+        value: "kaspersky",
+        count: 5
+      },
+      {
+        value: "new",
+        count: 1
       }
     ],
     HIGHLIGHTS: [

@@ -1,0 +1,29 @@
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.tag {
+    background: #333;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.count {
+    color: #888;
+    margin-left: 4px;
+}
+
+.showAll {
+    font-size: 0.75rem;
+    color: #4eaaff;
+    background: none;
+    border: none;
+    cursor: pointer;
+}

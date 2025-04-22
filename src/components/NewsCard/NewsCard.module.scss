@@ -38,14 +38,22 @@
 .meta {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
     font-size: 0.85rem;
     color: #bbb;
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 }
 
 .favicon {
     width: 16px;
     height: 16px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .content {
@@ -58,38 +66,16 @@
 }
 
 .showMore {
-    font-size: 0.75rem;
-    color: #4eaaff;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
     margin-top: 8px;
-}
-
-.tag {
-    background: #333;
-    padding: 4px 8px;
-    border-radius: 16px;
-    font-size: 0.75rem;
-}
-
-.count {
-    color: #888;
-    margin-left: 4px;
-}
-
-.showAll {
     font-size: 0.75rem;
     color: #4eaaff;
     background: none;
     border: none;
     cursor: pointer;
+
+    &:hover {
+        background: #383838;
+    }
 }
 
 .footer {
@@ -102,10 +88,11 @@
 .sourceBtn {
     background: #2c2c2c;
     color: #f0f0f0;
-    border: 1px solid #444;
     padding: 6px 12px;
     border-radius: 8px;
     cursor: pointer;
+    color: #4eaaff;
+    border: none;
 
     &:hover {
         background: #383838;

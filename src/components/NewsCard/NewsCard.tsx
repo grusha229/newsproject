@@ -4,6 +4,7 @@ import { IData_SnippetNews } from './../../models/data';
 import NewsTrafficBlock from './NewsTrafficBlock/NewsTrafficBlock';
 import { formatCompactNumber } from './NewsTrafficBlock/NewsTrafficBlock.utils';
 import NewsSentimentStatus from './NewsSentimentStatus/NewsSentimentStatus';
+import NewsTagsBlock from './NewsTagsBlock/NewsTagsBlock';
 
 interface Props {
   data: IData_SnippetNews;
@@ -50,11 +51,11 @@ export const NewsCard: React.FC<Props> = ({ data }) => {
         <div className={styles['card']}>
             <div className={styles['headerRow']}>
                 <div className={styles['headerRow__stat']}>
-                    <div className={styles.date}>
+                    <div className={styles['date']}>
                         <span className="bold">{formattedDay} </span>
                         <span>{formattedMonth}</span>
                     </div>
-                    <div className={styles.reach}>
+                    <div className={styles['reach']}>
                         <span className="bold">{formatCompactNumber(REACH)}</span> Reach
                     </div>
                     {TRAFFIC && TRAFFIC.length > 0 && (
@@ -66,14 +67,26 @@ export const NewsCard: React.FC<Props> = ({ data }) => {
 
             <h2 className={styles['title']}>{TI}</h2>
 
-            <div className={styles.meta}>
-                <img src={FAV} alt={DOM} className={styles.favicon} />
-                <span className={styles.domain}>{DOM}</span>
-                <span className={styles.country}>🌍 {CNTR}</span>
-                <span className={styles.author}>👤 {AU.join(', ')}</span>
+            <div className={styles['meta']}>
+                <div className={styles['meta__item']}> 
+                    <img src={FAV} alt={DOM} className={styles['favicon']} />
+                    <span className={styles['domain']}>{DOM}</span>
+                </div>
+                {CNTR &&
+                    <div className={styles['meta__item']}>
+                        <span className={styles['domain']} >🌍</span>
+                        <span className={styles['domain']}>{CNTR}</span>
+                    </div>
+                }
+                {AU.length > 0  &&
+                    <div className={styles['meta__item']}>
+                        <span className={styles['author']} >👤</span>
+                        <span className={styles['author']}>{AU.join(', ')}</span>
+                    </div>
+                }
             </div>
 
-            <div className={styles.content}>
+            <div className={styles['content']}>
                 <div
                     className={highlightsClassName}
                     dangerouslySetInnerHTML={{
@@ -81,27 +94,18 @@ export const NewsCard: React.FC<Props> = ({ data }) => {
                     }}
                 />
                 <button
-                    className={styles.showMore}
+                    className={styles['showMore']}
                     onClick={toggleExpand}
                 >
                     {isExpanded ? 'Show less' : 'Show more'}
                 </button>
             </div>
 
-            <div className={styles.tags}>
-                {KW.map((tag, i) => (
-                <span key={i} className={styles.tag}>
-                    {tag.value} <span className={styles.count}>({tag.count})</span>
-                </span>
-                ))}
-                {KW.length > 5 && (
-                    <button className={styles.showAll}>Show All +{KW.length - 5}</button>
-                )}
-            </div>
+           <NewsTagsBlock key_words={KW} />
 
-            <div className={styles.footer}>
+            <div className={styles['footer']}>
                 <a href={URL} target='_blank' rel="noreferrer">
-                    <button className={styles.sourceBtn}>Original Source</button>
+                    <button className={styles['sourceBtn']}>Original Source</button>
                 </a>
             </div>
         </div>

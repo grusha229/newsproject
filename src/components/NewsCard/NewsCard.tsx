@@ -21,8 +21,8 @@ export const NewsCard: React.FC<Props> = ({ data }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
   const {
-    TI, URL, DP, REACH, DOM, FAV, AU, CNTR, TRAFFIC,
-    AB, HIGHLIGHTS, KW, SENT
+    TI, URL, DP, REACH, DOM, FAV, AU, CNTR, 
+    TRAFFIC, HIGHLIGHTS, KW, SENT
   } = data;
 
   const highlightsClassName = [
